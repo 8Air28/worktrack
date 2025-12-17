@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>出退勤修正</title>
+  </head>
+  <body>
+    <h2>出退勤時刻を修正</h2>
+    <a href="{% url 'attendance_history' %}">← 履歴に戻る</a>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <p>出勤時刻</p>
+      <input
+        type="datetime-local"
+        name="start_time"
+        value="{{ record.start_time|date:'Y-m-d\\TH:i' }}"
+      />
+
+      <p>退勤時刻</p>
+      <input
+        type="datetime-local"
+        name="end_time"
+        value="{{ record.end_time|date:'Y-m-d\\TH:i' }}"
+      />
+
+      <br /><br />
+      <button type="submit">保存する</button>
+    </form>
+  </body>
+</html>

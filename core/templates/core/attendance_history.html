@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>勤務履歴</title>
+  </head>
+  <body>
+    <h2>勤務履歴一覧</h2>
+    <a href="/">← ダッシュボードへ戻る</a>
+
+    <table border="1" cellpadding="8">
+      <tr>
+        <th>日付</th>
+        <th>出勤</th>
+        <th>退勤</th>
+        <th>勤務時間</th>
+        <th>編集</th>
+      </tr>
+
+      {% for item in history %}
+      <tr>
+        <td>{{ item.record.created_at.date }}</td>
+        <td>{{ item.start|date:"H:i" }}</td>
+        <td>
+          {% if item.end %} {{ item.end|date:"H:i" }} {% else %} - {% endif %}
+        </td>
+        <td>
+          {% if item.duration %} {{ item.duration }} {% else %} - {% endif %}
+        </td>
+        <td>
+          <!-- 🔥 URL 修正（正しいルーティングに合わせた）-->
+          <a href="{% url 'attendance_edit' item.record.id %}">修正</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
